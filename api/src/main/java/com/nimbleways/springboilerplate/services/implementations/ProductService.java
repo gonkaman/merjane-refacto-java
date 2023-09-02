@@ -46,4 +46,19 @@ public class ProductService {
             pr.save(p);
         }
     }
+
+    public void handleFlashSaleProduct(Product p) {
+        if (LocalDate.now().plusDays(p.getLeadTime()).isAfter(p.getFlashSaleEndDate()) 
+		|| p.getFlashSaleConsumed() == p.getFlashSaleMaxQuantity()) {
+            ns.sendOutOfStockNotification(p.getName());
+            p.setAvailable(0);
+            pr.save(p);
+        } else if (p.getFlashSaleStartDate().isAfter(LocalDate.now())) {
+            ns.sendOutOfStockNotification(p.getName());
+            pr.save(p);
+        } else {
+            notifyDelay(p.getLeadTime(), p);
+        }
+    }
+
 }

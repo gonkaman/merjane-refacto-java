@@ -38,4 +38,16 @@ public class Product {
 
     @Column(name = "season_end_date")
     private LocalDate seasonEndDate;
+
+    @Column(name = "flashsale_start_date")
+    private LocalDate flashSaleStartDate;
+
+    @Column(name = "flashsale_end_date")
+    private LocalDate flashSaleEndDate;
+
+    @Column(name = "flashsale_consumed")
+    private Integer flashSaleConsumed;
+
+    @Column(name = "flashsale_max_quantity")
+    private Integer flashSaleMaxQuantity;
 }

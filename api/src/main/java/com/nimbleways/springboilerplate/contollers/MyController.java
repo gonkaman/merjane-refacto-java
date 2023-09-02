@@ -67,6 +67,15 @@ public class MyController {
                 } else {
                     ps.handleExpiredProduct(p);
                 }
+            }else if (p.getType().equals("FLASHSALE")) {
+                if (LocalDate.now().isAfter(p.getFlashSaleStartDate()) && LocalDate.now().isBefore(p.getFlashSaleEndDate()) 
+			&& p.getFlashSaleConsumed() <= p.getFlashSaleMaxQuantity()) {
+                    p.setAvailable(p.getAvailable() - 1);
+		    p.setFlashSaleConsumed(p.getFlashSaleConsumed() + 1);
+                    pr.save(p);
+                } else {
+                    ps.handleFlashSaleProduct(p);
+                }
             }
         }
 
